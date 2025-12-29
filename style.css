@@ -1,0 +1,75 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f6f9;
+    color: #343a40;
+    
+    /* Tambahan agar Footer Sticky di Bawah */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto; /* Ini kunci agar footer terdorong ke bawah */
+}
+
+.navbar {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Style untuk Nomor Langkah (Step Number) */
+.step-number {
+    width: 32px;
+    height: 32px;
+    background-color: #e0e7ff;
+    color: #4f46e5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* Garis pemisah antar kolom instruksi pada layar desktop */
+@media (min-width: 768px) {
+    .border-start-md {
+        border-left: 1px solid #e9ecef;
+    }
+}
+
+/* Upload Area Styling */
+.upload-area {
+    border: 2px dashed #dee2e6;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover, .upload-area.active {
+    border-color: #0d6efd;
+    background-color: #eff6ff;
+}
+
+.upload-area .icon-container i {
+    transition: color 0.3s ease;
+}
+
+.upload-area:hover .icon-container i {
+    color: #0d6efd !important; /* Icon jadi biru saat hover */
+}
+
+.transition-btn {
+    transition: transform 0.1s;
+}
+.transition-btn:active {
+    transform: scale(0.98);
+}
