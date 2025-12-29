@@ -35,8 +35,19 @@
                             <div class="step-number me-3">1</div>
                             <div>
                                 <h6 class="fw-bold">Persiapan Data</h6>
-                                <p class="text-muted small mb-3">Unduh template input, lalu isi dengan data populasi (transaksi) yang akan diaudit.</p>
-                                <div class="d-flex gap-2">
+                                <p class="text-muted small mb-2">Unduh template input, lalu isi data populasi transaksi.</p>
+                                
+                                <div class="alert alert-primary py-2 px-3 small border-0 mb-3 rounded-3">
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-layer-group me-2 mt-1"></i>
+                                        <div>
+                                            <strong>Support Banyak Akun!</strong><br>
+                                            Anda bisa memproses banyak akun sekaligus. Pastikan <b>1 Sheet mewakili 1 Akun</b> dalam file Excel yang sama.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid">
                                     <a href="assets/Template_Input.xlsx" class="btn btn-sm btn-outline-primary" download>
                                         <i class="fa-solid fa-download me-1"></i> Unduh Template Input
                                     </a>
@@ -50,7 +61,7 @@
                             <div class="step-number me-3">2</div>
                             <div>
                                 <h6 class="fw-bold">Lengkapi Informasi</h6>
-                                <p class="text-muted small mb-0">Isi form <b>Informasi Penugasan</b> di bawah (Kiri) untuk melengkapi header Kertas Kerja Audit secara otomatis.</p>
+                                <p class="text-muted small mb-0">Isi form <b>Informasi Penugasan</b> di panel kiri bawah. Data ini akan otomatis dimasukkan ke header Kertas Kerja Audit (Nama Klien, Periode, Auditor, dll).</p>
                             </div>
                         </div>
                     </div>
@@ -60,7 +71,7 @@
                             <div class="step-number me-3">3</div>
                             <div>
                                 <h6 class="fw-bold">Proses & Unduh</h6>
-                                <p class="text-muted small mb-0">Upload file input yang sudah diisi ke panel <b>Upload</b> (Kanan), lalu klik proses untuk mendapatkan hasil.</p>
+                                <p class="text-muted small mb-0">Upload file input yang sudah diisi ke panel <b>Upload</b> (Kanan), lalu klik proses. Sistem akan menghasilkan file output berisi sampling dan kertas kerja lengkap.</p>
                             </div>
                         </div>
                     </div>
@@ -150,19 +161,20 @@
             </div>
         </div>
     </div>
-<footer class="bg-white border-top py-4 mt-auto">
+
+    <footer class="bg-white border-top py-4 mt-auto">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
                     <p class="mb-0 small text-muted">
-                        &copy; <span id="year"></span> <strong>Project MUS</strong>. Created by <a href="#" class="text-decoration-none fw-bold text-primary"><b>Viany Ramadhany</b></a>.
+                        &copy; <span id="year"></span> <strong>Project MUS</strong>. Created by <a href="#" class="text-decoration-none fw-bold text-primary">Dzramax04</a>.
                     </p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
                     <ul class="list-inline mb-0 small">
-                        <li class="list-inline-item"><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-muted text-decoration-none">Audit Tools</a></li>
                         <li class="list-inline-item mx-2 text-muted">&middot;</li>
-                        <li class="list-inline-item"><a href="#" class="text-muted text-decoration-none">Terms of Service</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-muted text-decoration-none">v2.0 Stable</a></li>
                     </ul>
                 </div>
             </div>
@@ -179,6 +191,7 @@
     <script>
         document.getElementById('preparedDate').valueAsDate = new Date();
         document.getElementById('reviewedDate').valueAsDate = new Date();
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
