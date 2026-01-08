@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- PWA Meta Tags -->
+<meta name="application-name" content="MUS Template">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="MUS Template">
+<meta name="description" content="Aplikasi untuk membuat template MUS Audit">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="msapplication-config" content="none">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="theme-color" content="#000000">
+
+<!-- Icons -->
+<link rel="icon" type="image/png" sizes="192x192" href="/ico/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/ico/icon-512.png">
+<link rel="apple-touch-icon" href="/ico/icon-192.png">
+
+<!-- Manifest -->
+<link rel="manifest" href="manifest.json">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Audit Sampling (MUS)</title>
@@ -192,6 +212,89 @@
         document.getElementById('preparedDate').valueAsDate = new Date();
         document.getElementById('reviewedDate').valueAsDate = new Date();
         document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+    <script>
+        // Registrasi Service Worker
+        if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service-worker.js')
+            .then((registration) => {
+                console.log('✅ Service Worker registered:', registration.scope);
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                console.log('🔄 Service Worker update found!');
+                
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('🆕 New content available!');
+                    // Bisa tambahkan notifikasi untuk reload
+                    if (confirm('Update tersedia! Muat ulang aplikasi?')) {
+                        window.location.reload();
+                    }
+                    }
+                });
+                });
+            })
+            .catch((error) => {
+                console.log('❌ Service Worker registration failed:', error);
+            });
+        });
+        
+        // Listen for controller change
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+            }
+        });
+        }
+
+        // Deteksi jika app diinstall sebagai PWA
+        window.addEventListener('DOMContentLoaded', () => {
+        // Cek display mode
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                            window.navigator.standalone ||
+                            document.referrer.includes('android-app://');
+        
+        if (isStandalone) {
+            console.log('📱 Running as PWA');
+            document.body.classList.add('pwa-mode');
+        }
+        
+        // Tombol install PWA
+        let deferredPrompt;
+        const installBtn = document.createElement('button');
+        installBtn.innerHTML = '📲 Install App';
+        installBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:1000;padding:10px;background:#000;color:#fff;border:none;border-radius:5px;cursor:pointer;font-size:14px;';
+        installBtn.addEventListener('click', () => {
+            if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                console.log('✅ User accepted install');
+                }
+                deferredPrompt = null;
+            });
+            }
+        });
+        
+        // Sembunyikan jika sudah diinstall
+        if (!isStandalone) {
+            window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.body.appendChild(installBtn);
+            });
+            
+            window.addEventListener('appinstalled', () => {
+            console.log('🎉 PWA installed');
+            document.body.removeChild(installBtn);
+            });
+        }
+        });
     </script>
 </body>
 </html>

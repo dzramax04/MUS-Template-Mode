@@ -73,3 +73,20 @@ footer {
 .transition-btn:active {
     transform: scale(0.98);
 }
+
+/* Style untuk PWA */
+.pwa-mode header {
+  padding-top: env(safe-area-inset-top, 20px);
+}
+
+@media (display-mode: standalone) {
+  body {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Sembunyikan browser UI */
+  header {
+    padding-top: 40px;
+  }
+}
